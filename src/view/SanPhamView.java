@@ -267,6 +267,15 @@ public class SanPhamView extends javax.swing.JFrame {
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
         // TODO add your handling code here:
+        int row = tblSanPham.getSelectedRow();
+        if(row == -1){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xóa");
+            return;
+        }
+        int confrim = JOptionPane.showConfirmDialog(this, "Có muốn sản phẩm này không");
+        if(confrim != JOptionPane.YES_OPTION){
+            return;
+        }
         Integer id = Integer.parseInt(txtID.getText());
         JOptionPane.showMessageDialog(this, sanPhamService.delete(id));
         clearForm();
