@@ -272,8 +272,8 @@ public class SanPhamView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng cần xóa");
             return;
         }
-        int confrim = JOptionPane.showConfirmDialog(this, "Có muốn sản phẩm này không");
-        if(confrim != JOptionPane.YES_OPTION){
+        int confirm = JOptionPane.showConfirmDialog(this, "Có muốn sản phẩm này không");
+        if(confirm != JOptionPane.YES_OPTION){
             return;
         }
         Integer id = Integer.parseInt(txtID.getText());
