@@ -52,7 +52,6 @@ public class SanPhamView extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
-        btnLoadData = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
 
@@ -114,13 +113,6 @@ public class SanPhamView extends javax.swing.JFrame {
             }
         });
 
-        btnLoadData.setText("Load Data");
-        btnLoadData.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLoadDataMouseClicked(evt);
-            }
-        });
-
         btnXoa.setText("Xoa");
         btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -174,7 +166,6 @@ public class SanPhamView extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(9, 9, 9))
-                            .addComponent(btnLoadData, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
@@ -190,38 +181,32 @@ public class SanPhamView extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(btnLoadData)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(cboDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(rdConHang)
-                            .addComponent(rdHetHang)))
+                            .addComponent(jLabel3)
+                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
                         .addComponent(btnXoa)
                         .addGap(18, 18, 18)
                         .addComponent(btnUpdate)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cboDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(rdConHang)
+                    .addComponent(rdHetHang))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,12 +226,6 @@ public class SanPhamView extends javax.swing.JFrame {
         
     }
     
-    private void btnLoadDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoadDataMouseClicked
-        // TODO add your handling code here:
-           ArrayList<SanPham> list = sanPhamService.getAll();
-           loadData(list);
-    }//GEN-LAST:event_btnLoadDataMouseClicked
-
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         // TODO add your handling code here:
         Integer id = Integer.parseInt(txtID.getText());
@@ -262,6 +241,7 @@ public class SanPhamView extends javax.swing.JFrame {
         SanPham sanPham = new SanPham(id, tenSP, danhMuc, soLuong, trangThai);
         String kq = sanPhamService.addNew(sanPham);
         JOptionPane.showMessageDialog(this, kq);
+        clearForm();
         loadData(sanPhamService.getAll());
     }//GEN-LAST:event_btnAddMouseClicked
 
@@ -289,9 +269,17 @@ public class SanPhamView extends javax.swing.JFrame {
         // TODO add your handling code here:
         Integer id = Integer.parseInt(txtID.getText());
         JOptionPane.showMessageDialog(this, sanPhamService.delete(id));
+        clearForm();
         loadData(sanPhamService.getAll());
     }//GEN-LAST:event_btnXoaMouseClicked
 
+    public void clearForm(){
+        txtID.setText("");
+        txtTenSP.setText("");
+        txtSoLuong.setText("");
+        rdConHang.setSelected(true);
+    }
+    
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
         // TODO add your handling code here:
         Integer id = Integer.parseInt(txtID.getText());
@@ -307,6 +295,7 @@ public class SanPhamView extends javax.swing.JFrame {
         SanPham sanPham = new SanPham(id, tenSP, danhMuc, soLuong, trangThai);
         String kq = sanPhamService.upadate(sanPham);
         JOptionPane.showMessageDialog(this, kq);
+        clearForm();
         loadData(sanPhamService.getAll());
     }//GEN-LAST:event_btnUpdateMouseClicked
 
@@ -347,7 +336,6 @@ public class SanPhamView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnLoadData;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
